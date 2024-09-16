@@ -11,7 +11,7 @@ import styles from "@/css/header.module.css";
 import logo from '@/assets/images/logo/high-range-logo-orange-white.webp'
 
 export default function Header() {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleClick = (active: boolean) => setIsOpen(active);
 
@@ -43,12 +43,12 @@ export default function Header() {
     ]
     return (
         <header className={styles.Header}>
-            <Image src={logo} alt="Hight Race Logo" className="w-[150px]"  />
-            <MdiMenuOpen className="text-5xl text-orange-500" onClick={() => handleClick(true)} />
+            <Image src={logo} alt="Hight Race Logo" className="w-[150px] lg:w-[300px] lg:grow-0"  />
+            <MdiMenuOpen className="text-5xl text-orange-500 lg:hidden" onClick={() => handleClick(true)} />
 
-            <nav className={isOpen ? "right-0 opacity-100" : "right-[-100%] opacity-0"}>
+            <nav className={isOpen ? "max-lg:right-0 max-lg:opacity-100" : "max-lg:right-[-100%] max-lg:opacity-0"}>
                 <ul>
-                <Image src={logo} alt="Hight Race Logo" className="w-[300px] mb-6"  />
+                <Image src={logo} alt="Hight Race Logo" className="w-[300px] mb-6 lg:hidden"  />
                     {
                         menu.map((item, index) => (
                             <li key={index}>
@@ -57,9 +57,10 @@ export default function Header() {
                         ))
                     }
                     
-                    <MdiMenuClose className="absolute right-3 top-3 text-5xl text-orange-500" onClick={() => handleClick(false)}  />
+                    <MdiMenuClose className="absolute right-3 top-3 text-5xl text-orange-500 lg:hidden" onClick={() => handleClick(false)}  />
                 </ul>
             </nav>
+            <div className="w-[300px] max-xl:hidden"></div>
         </header>
     )
 }

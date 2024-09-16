@@ -1,11 +1,11 @@
 .Header {
-    @apply p-3 flex items-center justify-between relative bg-neutral-950 border-b border-orange-500 w-screen;
+    @apply p-3 flex items-center justify-between relative bg-neutral-950 border-b border-orange-500 w-screen lg:items-end 2xl:pt-6 2xl:px-6;
 }
 
 .Header > nav {
-    @apply w-full h-screen top-0 bottom-0 fixed z-10 bg-neutral-950 transition-all duration-500 max-w-[400px];
+    @apply w-full max-lg:h-screen max-lg:top-0 max-lg:bottom-0 max-lg:fixed max-lg:z-10 bg-neutral-950 transition-all duration-500 max-lg:max-w-[400px] lg:grow;
 }
 
 .Header > nav > ul {
-    @apply flex flex-col items-center justify-center h-full gap-y-6 text-3xl relative;
+    @apply flex flex-col items-center justify-center h-full gap-y-6 text-3xl relative lg:flex-row lg:text-base lg:gap-x-6 lg:justify-end xl:justify-center xl:text-lg;
 }
