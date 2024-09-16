@@ -8,12 +8,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        "primary": "#191919",
-        "fontcolor": "e6e6e6",
-        "secondary": "FF9800",
-        "red": "#ec5353"
-      },
       screens: {
         'sm': '576px',
         'md': '768px',
