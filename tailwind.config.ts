@@ -9,8 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "primary": "#191919",
+        "fontcolor": "e6e6e6",
+        "secondary": "FF9800",
+        "red": "#ec5353"
+      },
+      screens: {
+        'sm': '576px',
+        'md': '768px',
+        'lg': '992px',
+        'xl': '1200px',
+        '2xl': '1366px',
+        '3xl': '1600px',
       },
     },
   },
