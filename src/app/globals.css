@@ -25,3 +25,57 @@ body {
     text-wrap: balance;
   }
 }
+
+
+/* Reset input, textarea. select */
+input,
+input:focus,
+select:focus,
+input.form-control:focus,
+select,
+textarea,
+textarea:focus,
+textarea.form-control:focus button {
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  outline: 0 none !important;
+}
+
+.formgroup, .formgroup-checkbox {
+  @apply relative py-1 mb-6 w-full;
+}
+
+.formgroup *, .formgroup-checkbox * {
+  @apply transition-all ease-in-out duration-200;
+}
+
+.formgroup input, .formgroup select {
+  @apply bg-transparent border border-orange-500/60 rounded-md px-4 py-3 text-base text-white w-full focus:border-orange-500;
+}
+
+.formgroup span {
+  @apply absolute bg-neutral-950 left-4 top-5 px-2 text-xs text-orange-500/60;
+}
+
+.formgroup input:focus + span, .formgroup input:not(:placeholder-shown) + span,
+.formgroup select:focus + span, .formgroup select:not(:placeholder-shown) + span {
+  @apply top-[-0.2rem] bg-orange-950 text-white rounded-sm;
+}
+
+.formgroup input::placeholder, .formgroup select::placeholder {
+  @apply text-neutral-950;
+}
+
+.formgroup > p {
+  @apply text-xs absolute text-[#FF0000] mt-1 ml-1;
+}
+
+.formgroup-checkbox label {
+  @apply flex items-center justify-start gap-x-3;
+}
+.formgroup-checkbox div {
+  @apply size-5 border border-orange-500 py-1;
+}

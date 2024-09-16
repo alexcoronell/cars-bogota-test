@@ -1,7 +1,10 @@
 import Image from "next/image";
+import HomeForm from "@/components/HomeForm";
 
 export default function Home() {
   return (
-    <h1>Home Page</h1>
+    <div className="Home">
+      <HomeForm />
+    </div>
   );
 }
