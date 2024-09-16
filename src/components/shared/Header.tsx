@@ -3,8 +3,8 @@
 import Link from "next/link"
 import Image from "next/image";
 import { useState } from "react";
-import { MdiMenuOpen } from "@/app/components/icons/MdiMenuOpen"
-import { MdiMenuClose } from "@/app/components/icons/MdiMenuClose"
+import { MdiMenuOpen } from "@/components/icons/MdiMenuOpen"
+import { MdiMenuClose } from "@/components/icons/MdiMenuClose"
 
 import styles from "@/css/header.module.css";
 
