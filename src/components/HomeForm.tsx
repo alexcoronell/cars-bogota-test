@@ -18,6 +18,7 @@ type RequestStatus = "init" | "loading" | "success" | "failed";
 export default function HomeForm() {
     const [firstname, setFirstname] = useState({ field: "", validate: true });
     const [lastname, setLastname] = useState({ field: "", validate: true });
+    const [identificationNumber, setIdentificationNumber] = useState({ field: 0, validate: true });
     const [email, setEmail] = useState({ field: "", validate: true });
     const [department, setDepartment] = useState({ field: 0, validate: true });
     const [municipality, setMunicipality] = useState({ field: 0, validate: true });
@@ -53,7 +54,7 @@ export default function HomeForm() {
     const regularExpressions = {
         name: /^([A-ZÁÉÍÓÚ][a-zñáéíóú]+[\s]*)+$/,
         email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        phone: /^[0-9]/
+        jusNumbers: /^[0-9]/
     };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -79,6 +80,13 @@ export default function HomeForm() {
         const newEmail = newValue.value;
         const emailValidate = regularExpressions.email.test(newEmail);
         setEmail((prev) => ({ ...prev, field: newEmail, validate: emailValidate }))
+    }
+
+    const onChangeIdentificationNumber = (e: ChangeEvent<HTMLInputElement>): void => {
+        const { value } = e.target as HTMLInputElement;
+        const newIdentificationNumber = parseInt(value)
+        const validate = regularExpressions.jusNumbers.test(value);
+        setIdentificationNumber((prev) => ({ ...prev, field: newIdentificationNumber, validate }))
     }
 
     const onChangeDepartment = (e: ChangeEvent<HTMLSelectElement>): void => {
@@ -136,6 +144,25 @@ export default function HomeForm() {
                     </label>
                     <p className={!lastname.validate ? "" : "hidden"}>
                         {lastname.field.length == 0 ? "El Campo es requerido" : "Caracteres especiales no permitidos"}
+                    </p>
+                </div>
+
+                {/* Lastname */}
+                <div className="formgroup">
+                    <label htmlFor="name">
+                        <input type="text"
+                            name="identificationNumber"
+                            value={identificationNumber.field}
+                            id="identificationNumber"
+                            placeholder="identificationNumber"
+                            disabled={requestStatus == "loading"}
+                            onChange={onChangeIdentificationNumber}
+                            onBlur={onChangeIdentificationNumber}
+                        />
+                        <span>Apellido</span>
+                    </label>
+                    <p className={!identificationNumber.validate ? "" : "hidden"}>
+                        {identificationNumber.field.toString().length == 0 ? "El Campo es requerido" : "Caracteres no numéricos no permitidos"}
                     </p>
                 </div>
 
