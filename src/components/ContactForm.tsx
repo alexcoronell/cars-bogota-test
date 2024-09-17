@@ -234,6 +234,20 @@ export default function ContactForm() {
         e.preventDefault();
         validateAll();
         if (!validForm()) return;
+        setRequestStatus("loading");
+        const indexDepartment = departments.findIndex(department => department.id === parseInt(formData.department));
+        const indexMunicipality = municipalities.findIndex(municipality => municipality.id === parseInt(formData.municipality));
+        const newMessage: MessageInterface = {
+            firstname: formData.firstname,
+            lastname: formData.lastname,
+            identificationNumber: formData.identificationNumber,
+            mobilePhone: formData.mobilePhone,
+            email: formData.email,
+            department: departments[indexDepartment].name,
+            municipality: municipalities[indexMunicipality].name,
+            habeasData: formData.habeasData
+        }
+        console.log(newMessage);
     }
 
 
