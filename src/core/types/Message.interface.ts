@@ -1,10 +1,10 @@
 export interface MessageInterface {
     firstname: string;
     lastname: string;
-    identificationNumber: number;
+    identificationNumber: number | string;
     department: string;
     municipality: string;
-    mobilePhone: number;
+    mobilePhone: number | string;
     email: string;
     habeasData: boolean;
 }

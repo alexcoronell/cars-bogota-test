@@ -21,19 +21,51 @@ interface dataInterface {
 
 
 export default function HomeForm() {
-    const [firstname, setFirstname] = useState<dataInterface>({ field: "", validate: true });
-    const [lastname, setLastname] = useState<dataInterface>({ field: "", validate: true });
-    const [identificationNumber, setIdentificationNumber] = useState<dataInterface>({ field: "", validate: true });
-    const [email, setEmail] = useState<dataInterface>({ field: "", validate: true });
-    const [department, setDepartment] = useState<dataInterface>({ field: 0, validate: true });
-    const [municipality, setMunicipality] = useState<dataInterface>({ field: 0, validate: true });
-    const [mobilePhone, setMobilePhone] = useState<dataInterface>({ field: "", validate: true });
-    const [habeasData, setHabeasData] = useState<boolean>(false);
+    const [formData, setFormData] = useState<MessageInterface>({
+        firstname: "",
+        lastname: "",
+        identificationNumber: "",
+        department: "",
+        municipality: "",
+        mobilePhone: "",
+        email: "",
+        habeasData: false,
+    })
+
+    const [errors, setErrors] = useState({
+        firstname: "",
+        lastname: "",
+        identificationNumber: "",
+        department: "",
+        municipality: "",
+        mobilePhone: "",
+        email: "",
+        habeasData: ""
+    });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
+        console.log(name, value);
+        let finalValue: number | string | boolean = value;
+        if (name === "identificationNumber" || name === "mobilePhone") {
+            finalValue = validateJustNumber(value)
+        }
+        if (name === "habeasData") {
+            finalValue = !formData.habeasData
+        }
+        setFormData({
+            ...formData,
+            [name]: finalValue
+        })
+    }
+
+
     const [requestStatus, setRequestStatus] = useState<RequestStatus>("init");
     const [requestStatusDepartments, setRequestStatusDepartments] = useState<RequestStatus>("init");
     const [requestStatusMunicipalities, setRequestStatusMunicipalities] = useState<RequestStatus>("init");
     const [departments, setDepartments] = useState<DepartmentInterface[]>([]);
     const [municipalities, setMunicipalities] = useState<MunicipalityInterface[]>([]);
+
 
     useEffect(() => {
         const getData = async () => {
@@ -45,16 +77,17 @@ export default function HomeForm() {
         getData();
     }, [])
 
+
     useEffect(() => {
         const getCurrentMunicipalities = async (id: number) => {
-            if (!department.field) return;
+            if (!formData.department) return;
             setRequestStatusMunicipalities("loading")
             const data = await getMunicipalities(id);
             setMunicipalities(data)
             setRequestStatusMunicipalities("success")
         }
-        getCurrentMunicipalities(department.field as number);
-    }, [department])
+        getCurrentMunicipalities(formData.department as unknown as number);
+    }, [formData.department])
 
     const regularExpressions = {
         name: /^([A-ZÁÉÍÓÚ][a-zñáéíóú]+[\s]*)+$/,
@@ -68,59 +101,143 @@ export default function HomeForm() {
         return isNaN(vNumber) ? "" : vNumber;
     }
 
-    const onChangeFirstname = (e: ChangeEvent<HTMLInputElement>): void => {
-        const newValue = e.target as HTMLInputElement;
-        const newFirstname = newValue.value;
-        const nameValidate = regularExpressions.name.test(newFirstname);
-        setFirstname((prev) => ({ ...prev, field: newFirstname, validate: nameValidate }))
+    const validateFirstname = (): boolean => {
+        let error = ""
+        if (formData.firstname.length === 0) {
+            error = "El nombre es requerido"
+        } else if (!regularExpressions.name.test(formData.firstname)) {
+            error = "El nombre sólo debe contener letras"
+        }
+        setErrors(prev => ({
+            ...prev,
+            firstname: error
+        }))
+        return error.length === 0
     }
 
-    const onChangeLastname = (e: ChangeEvent<HTMLInputElement>): void => {
-        const newValue = e.target as HTMLInputElement;
-        const newLastname = newValue.value;
-        const nameValidate = regularExpressions.name.test(newLastname);
-        setLastname((prev) => ({ ...prev, field: newLastname, validate: nameValidate }))
+    const validateLastname = (): boolean => {
+        let error = ""
+        if (formData.lastname.length === 0) {
+            error = "El apellido es requerido"
+        } else if (!regularExpressions.name.test(formData.lastname)) {
+            error = "El apellido sólo debe contener letras"
+        }
+        setErrors(prev => ({
+            ...prev,
+            lastname: error
+        }))
+        return error.length === 0
     }
 
-    const onChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-        const newValue = e.target as HTMLInputElement;
-        const newEmail = newValue.value;
-        const emailValidate = regularExpressions.email.test(newEmail);
-        setEmail((prev) => ({ ...prev, field: newEmail, validate: emailValidate }))
+    const validateEmail = (): boolean => {
+        let error = ""
+        if (!formData.email) {
+            error = "El correo electrónico es requerido"
+        } else if (!regularExpressions.email.test(formData.email)) {
+            error = "El correo electrónico no es válido"
+        }
+        setErrors(prev => ({
+            ...prev,
+            email: error
+        }))
+        return error.length === 0
     }
 
-    const onChangeIdentificationNumber = (e: ChangeEvent<HTMLInputElement>): void => {
-        const { value } = e.target as HTMLInputElement;
-        const newIdentificationNumber = validateJustNumber(value);
-        const validate = regularExpressions.idNumber.test(value);
-        setIdentificationNumber((prev) => ({ ...prev, field: newIdentificationNumber, validate }))
+    const validateIdentificationNumber = (): boolean => {
+        let error = ""
+        if (!formData.identificationNumber || formData.identificationNumber === 0) {
+            error = "La cédula de identidad es requerida"
+        }
+        setErrors(prev => ({
+            ...prev,
+            identificationNumber: error
+        }))
+        return error.length === 0
     }
 
-    const onChangeMobilePhone = (e: ChangeEvent<HTMLInputElement>): void => {
-        const { value } = e.target as HTMLInputElement;
-        const newMobilePhone = validateJustNumber(value);
-        const validate = regularExpressions.nPhone.test(value);
-        setMobilePhone((prev) => ({ ...prev, field: newMobilePhone, validate }))
+    const validateMobilePhone = (): boolean => {
+        let error = ""
+        if (!formData.mobilePhone || formData.mobilePhone === 0) {
+            error = "El número de celular es requerido"
+        }
+        setErrors(prev => ({
+            ...prev,
+            mobilePhone: error
+        }))
+        return error.length === 0
     }
 
-    const onChangeDepartment = (e: ChangeEvent<HTMLSelectElement>): void => {
-        const { value } = e.target as HTMLSelectElement;
-        const id = parseInt(value)
-        const validate = (id > 0) ? true : false;
-        setMunicipality(prev => ({ ...prev, field: 0, validate: false }));
-        setDepartment(prev => ({ ...prev, field: id, validate }))
+    const validateDepartment = (): boolean => {
+        let error = ""
+        if (!formData.department) {
+            error = "El departamento es requerido"
+        }
+        setErrors(prev => ({
+            ...prev,
+            department: error
+        }))
+        return error.length === 0
     }
 
-    const onChangeMunicipality = (e: ChangeEvent<HTMLSelectElement>): void => {
-        const { value } = e.target as HTMLSelectElement;
-        const id = parseInt(value)
-        const validate = (id > 0) ? true : false;
-        setMunicipality(prev => ({ ...prev, field: id, validate }));
+    const validateMunicipality = (): boolean => {
+        let error = ""
+        if (!formData.municipality) {
+            error = "El Municipio es requerido"
+        }
+        setErrors(prev => ({
+            ...prev,
+            municipality: error
+        }))
+        return error.length === 0
     }
+
+    const validateHabeasData = (): boolean => {
+        let error = ""
+        if (!formData.habeasData) {
+            error = "Debe aceptar la política de tratamiendo de datos"
+        }
+        setErrors(prev => ({
+            ...prev,
+            habeasData: error
+        }))
+        return error.length === 0
+    }
+
+
+    const validateAll = ():void => {
+        validateFirstname()
+        validateLastname()
+        validateIdentificationNumber()
+        validateMobilePhone()
+        validateEmail()
+        validateDepartment()
+        validateMunicipality()
+        validateHabeasData()
+    } 
+
+    const validForm = (): boolean => {
+        if (
+            validateFirstname() &&
+            validateLastname() &&
+            validateIdentificationNumber() &&
+            validateEmail() &&
+            validateDepartment() &&
+            validateMunicipality() &&
+            validateHabeasData()
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
-        alert("Enviado")
+        validateAll();
+        console.log(formData);
+        console.log(errors);
+        if (!validForm()) return;
     }
 
 
@@ -133,17 +250,17 @@ export default function HomeForm() {
                     <label htmlFor="firstname">
                         <input type="text"
                             name="firstname"
-                            value={firstname.field}
+                            value={formData.firstname}
                             id="firstname"
                             placeholder="firstname"
                             disabled={requestStatus == "loading"}
-                            onChange={onChangeFirstname}
-                            onBlur={onChangeFirstname}
+                            onChange={handleChange}
+                            onBlur={validateFirstname}
                         />
                         <span>Nombre</span>
                     </label>
-                    <p className={!firstname.validate ? "" : "hidden"}>
-                        {firstname.field.toString().length == 0 ? "El Campo es requerido" : "Caracteres especiales no permitidos"}
+                    <p className={errors.firstname === "" ? "hidden" : ""}>
+                        {errors.firstname}
                     </p>
                 </div>
 
@@ -152,17 +269,17 @@ export default function HomeForm() {
                     <label htmlFor="lastname">
                         <input type="text"
                             name="lastname"
-                            value={lastname.field}
+                            value={formData.lastname}
                             id="lastname"
                             placeholder="lastname"
                             disabled={requestStatus == "loading"}
-                            onChange={onChangeLastname}
-                            onBlur={onChangeLastname}
+                            onChange={handleChange}
+                            onBlur={validateLastname}
                         />
                         <span>Apellido</span>
                     </label>
-                    <p className={!lastname.validate ? "" : "hidden"}>
-                        {lastname.field.toString().length == 0 ? "El Campo es requerido" : "Caracteres especiales no permitidos"}
+                    <p className={errors.lastname === "" ? "hidden" : ""}>
+                        {errors.lastname}
                     </p>
                 </div>
 
@@ -171,17 +288,17 @@ export default function HomeForm() {
                     <label htmlFor="identificationNumber">
                         <input type="text"
                             name="identificationNumber"
-                            value={identificationNumber.field}
+                            value={formData.identificationNumber}
                             id="identificationNumber"
                             placeholder="identificationNumber"
                             disabled={requestStatus == "loading"}
-                            onChange={onChangeIdentificationNumber}
-                            onBlur={onChangeIdentificationNumber}
+                            onChange={handleChange}
+                            onBlur={validateIdentificationNumber}
                         />
                         <span>Cédula de ciudadanía</span>
                     </label>
-                    <p className={!identificationNumber.validate ? "" : "hidden"}>
-                        {identificationNumber.field.toString().length == 0 ? "El Campo es requerido" : "La Cédula de ciudadanía no es válida"}
+                    <p className={errors.identificationNumber === "" ? "hidden" : ""}>
+                        {errors.identificationNumber}
                     </p>
                 </div>
 
@@ -190,17 +307,17 @@ export default function HomeForm() {
                     <label htmlFor="mobilePhone">
                         <input type="text"
                             name="mobilePhone"
-                            value={mobilePhone.field}
+                            value={formData.mobilePhone}
                             id="mobilePhone"
                             placeholder="mobilePhone"
                             disabled={requestStatus == "loading"}
-                            onChange={onChangeMobilePhone}
-                            onBlur={onChangeMobilePhone}
+                            onChange={handleChange}
+                            onBlur={validateMobilePhone}
                         />
                         <span>Número Celular</span>
                     </label>
-                    <p className={!mobilePhone.validate ? "" : "hidden"}>
-                        {mobilePhone.field.toString().length == 0 ? "El Campo es requerido" : "El número debe contener 10 dígitos"}
+                    <p className={errors.mobilePhone === "" ? "hidden" : ""}>
+                        {errors.mobilePhone}
                     </p>
                 </div>
 
@@ -209,24 +326,28 @@ export default function HomeForm() {
                     <label htmlFor="email">
                         <input type="email"
                             name="email"
-                            value={email.field}
+                            value={formData.email}
                             id="email"
                             placeholder="email"
                             disabled={requestStatus == "loading"}
-                            onChange={onChangeEmail}
-                            onBlur={onChangeEmail}
+                            onChange={handleChange}
+                            onBlur={validateEmail}
                         />
                         <span>Correo Electrónico</span>
                     </label>
-                    <p className={!email.validate ? "" : "hidden"}>
-                        {email.field.toString().length == 0 ? "El campo es requerido" : "El correo electrónico no es válido"}
+                    <p className={errors.email === "" ? "hidden" : ""}>
+                        {errors.email}
                     </p>
                 </div>
 
                 {/* Department */}
                 <div className="formgroup">
                     <label htmlFor="department">
-                        <select name="department" id="department" onChange={onChangeDepartment} >
+                        <select name="department"
+                            id="department"
+                            onChange={handleChange}
+                            onBlur={validateDepartment}
+                        >
                             <option value={0}>Selecciona el departamento</option>
                             {
                                 departments.map(item => (
@@ -236,12 +357,19 @@ export default function HomeForm() {
                         </select>
                         <span>Departamento</span>
                     </label>
+                    <p className={errors.department === "" ? "hidden" : ""}>
+                        {errors.department}
+                    </p>
                 </div>
 
                 {/* Municipality */}
                 <div className="formgroup">
                     <label htmlFor="municipality">
-                        <select name="municipality" id="municipality" disabled={parseInt(department.field as string) < 1}>
+                        <select name="municipality"
+                            id="municipality"
+                            disabled={parseInt(formData.department as string) < 1}
+                            onBlur={validateMunicipality}
+                        >
                             <option value={0}>Selecciona el municipio</option>
                             {
                                 municipalities.map(item => (
@@ -251,14 +379,20 @@ export default function HomeForm() {
                         </select>
                         <span>Municipio</span>
                     </label>
+                    <p className={errors.municipality === "" ? "hidden" : ""}>
+                        {errors.municipality}
+                    </p>
                 </div>
 
                 <div className="formgroup-checkbox">
                     <label htmlFor="habeasData">
-                        <input type="checkbox" name="habeasData" id="habeasData" className="hidden" onChange={() => setHabeasData(prev => !prev)} />
-                        <div className={habeasData ? "bg-orange-500" : ""}></div>
+                        <input type="checkbox" name="habeasData" id="habeasData" className="hidden" onChange={handleChange} />
+                        <div className={formData.habeasData ? "bg-orange-500" : ""}></div>
                         <span>Acepta</span>
                     </label>
+                    <p className={errors.habeasData === "" ? "hidden" : ""}>
+                        {errors.habeasData}
+                    </p>
                 </div>
 
                 <button className="btn btn-primary" type="submit">Enviar</button>
