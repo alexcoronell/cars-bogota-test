@@ -246,7 +246,7 @@ export default function ContactForm() {
         validateAll();
         if (!formData.habeasData) {
             setResponseMessageStatus("warning");
-            setResponseMessage("Debes aceptar las políticas de manejo de datos para continuar");
+            setResponseMessage("Debes aceptar las políticas de manejo de datos para continuar y completar los datos requeridos");
             setShowResponse(true);
             setTimeout(() => {
                 setShowResponse(false)
