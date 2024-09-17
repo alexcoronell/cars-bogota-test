@@ -19,8 +19,8 @@ export default function HomeForm() {
     const [firstname, setFirstname] = useState({ field: "", validate: true });
     const [lastname, setLastname] = useState({ field: "", validate: true });
     const [email, setEmail] = useState({ field: "", validate: true });
-    const [department, setDepartment] = useState(0);
-    const [municipality, setMunicipality] = useState(0);
+    const [department, setDepartment] = useState({ field: 0, validate: true });
+    const [municipality, setMunicipality] = useState({ field: 0, validate: true });
     const [mobilePhone, setMobilePhone] = useState("");
     const [habeasData, setHabeasData] = useState<boolean>(false);
     const [requestStatus, setRequestStatus] = useState<RequestStatus>("init");
@@ -41,11 +41,13 @@ export default function HomeForm() {
 
     useEffect(() => {
         const getCurrentMunicipalities = async (id: number) => {
-            if(!department) return;
+            if(!department.field) return;
+            setRequestStatusMunicipalities("loading")
             const data = await getMunicipalities(id);
             setMunicipalities(data)
+            setRequestStatusMunicipalities("success")
         }
-        getCurrentMunicipalities(department);
+        getCurrentMunicipalities(department.field);
     }, [department])
 
     const regularExpressions = {
@@ -81,13 +83,17 @@ export default function HomeForm() {
 
     const onChangeDepartment = (e: ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target as HTMLSelectElement;
-        setMunicipality(0);
-        setDepartment(parseInt(value))
+        const id = parseInt(value)
+        const validate = ( id > 0 ) ? true : false;
+        setMunicipality(prev => ({...prev, field: 0, validate: false}));
+        setDepartment(prev => ({...prev, field: id, validate }))
     }
 
     const onChangeMunicipality = (e: ChangeEvent<HTMLSelectElement>): void => {
         const { value } = e.target as HTMLSelectElement;
-        setMunicipality(parseInt(value))
+        const id = parseInt(value)
+        const validate = ( id > 0 ) ? true : false;
+        setMunicipality(prev => ({...prev, field: id, validate}));
     }
 
 
@@ -170,7 +176,7 @@ export default function HomeForm() {
                 {/* Municipality */}
                 <div className="formgroup">
                     <label htmlFor="municipality">
-                        <select name="municipality" id="municipality" disabled={department < 1}>
+                        <select name="municipality" id="municipality" disabled={department.field < 1}>
                         <option value={0}>Selecciona el municipio</option>
                             {
                                 municipalities.map(item => (
