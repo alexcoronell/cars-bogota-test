@@ -1,6 +1,9 @@
 "use client"
 import { ChangeEvent, useState, useEffect } from "react"
 
+/* Components */
+import DataProcessingText from "./DataProcessingText";
+
 /* Interfaces */
 import { MessageInterface } from "@/core/types/Message.interface"
 import { DepartmentInterface } from "@/core/types/Department.interface";
@@ -10,17 +13,11 @@ import { MunicipalityInterface } from "@/core/types/Municipality.interface";
 import getDepartments from "@/core/services/department.service";
 import getMunicipalities from "@/core/services/municipality.service";
 
-import styles from '@/css/homeForm.module.css';
+import styles from '@/css/contactForm.module.css';
 
 type RequestStatus = "init" | "loading" | "success" | "failed";
 
-interface dataInterface {
-    field: number | string;
-    validate: boolean
-}
-
-
-export default function HomeForm() {
+export default function ContactForm() {
     const [formData, setFormData] = useState<MessageInterface>({
         firstname: "",
         lastname: "",
@@ -42,6 +39,8 @@ export default function HomeForm() {
         email: "",
         habeasData: ""
     });
+
+    const [showModalData, setShowModalData] = useState(false);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
@@ -203,7 +202,7 @@ export default function HomeForm() {
     }
 
 
-    const validateAll = ():void => {
+    const validateAll = (): void => {
         validateFirstname()
         validateLastname()
         validateIdentificationNumber()
@@ -212,7 +211,7 @@ export default function HomeForm() {
         validateDepartment()
         validateMunicipality()
         validateHabeasData()
-    } 
+    }
 
     const validForm = (): boolean => {
         if (
@@ -239,7 +238,7 @@ export default function HomeForm() {
 
 
     return (
-        <section className={styles.HomeForm}>
+        <section className={styles.ContactForm}>
             <form onSubmit={onSubmit}>
 
                 {/* Firstname */}
@@ -386,16 +385,33 @@ export default function HomeForm() {
                     <label htmlFor="habeasData">
                         <input type="checkbox" name="habeasData" id="habeasData" className="hidden" onChange={handleChange} />
                         <div className={formData.habeasData ? "bg-orange-500" : ""}></div>
-                        <span>Acepta</span>
+                        <span>
+                            Acepto la siguiente política de datos para el tratamiento de mis datos y ser contactado con la información que proporcione en este formulario.
+                            <button type="button" onClick={() => setShowModalData(true)}>Más información</button>
+                        </span>
                     </label>
                     <p className={errors.habeasData === "" ? "hidden" : ""}>
                         {errors.habeasData}
                     </p>
                 </div>
-
-                <button className="btn btn-primary" type="submit">Enviar</button>
+                <div className={styles.ContactForm__buttonArea}>
+                    <button className="btn btn-primary" type="submit">Enviar</button>
+                </div>
 
             </form>
+
+            {
+                showModalData && (
+                    <div className={styles.ContactForm__modalData}>
+                        <div className={styles.ContactForm__modalDataBox}>
+                            <DataProcessingText />
+                            <div className={styles.ContactForm__buttonArea}>
+                                <button className="btn btn-secondary" onClick={() => setShowModalData(false)}>Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         </section>
     )
 };

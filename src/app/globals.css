@@ -44,6 +44,42 @@ textarea.form-control:focus button {
   outline: 0 none !important;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold mb-2;
+}
+
+h1, h2, h3 {
+  @apply text-orange-500;
+}
+
+p {
+  @apply text-base text-pretty;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+h4 {
+  @apply text-lg;
+}
+
+h5 {
+  @apply text-base;
+}
+
+h6 {
+  @apply text-sm;
+}
+
 .formgroup, .formgroup-checkbox {
   @apply relative py-1 mb-6 w-full;
 }
@@ -74,16 +110,36 @@ textarea.form-control:focus button {
 }
 
 .formgroup-checkbox label {
-  @apply flex items-center justify-start gap-x-3;
+  @apply flex items-start justify-start gap-x-3 pb-4;
 }
 .formgroup-checkbox div {
   @apply size-5 border border-orange-500 py-1;
+}
+
+.formgroup-checkbox span {
+  @apply text-sm max-w-[85%] translate-y-[-0.3rem];
+}
+
+.formgroup-checkbox span > button {
+  @apply text-xs underline ml-3;
+}
+
+.formgroup-checkbox p {
+  @apply translate-y-[-1rem];
 }
 
 .btn {
   @apply py-2 px-6 rounded-sm transition-all duration-300;
 }
 
+.btn-primary, btn-secondary {
+  @apply hover:shadow-md hover:shadow-orange-500/30;
+}
+
 .btn-primary {
-  @apply bg-orange-500/75 text-white hover:bg-orange-500 hover:shadow-md hover:shadow-orange-500/30;
+  @apply bg-orange-500/75 text-white hover:bg-orange-500;
+}
+
+.btn-secondary {
+  @apply border border-orange-500/75 text-orange-500/75 hover:text-orange-500 hover:border-orange-500;
 }
