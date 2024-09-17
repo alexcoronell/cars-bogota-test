@@ -1,0 +1,11 @@
+.ModalRegister__data {
+    @apply grid grid-cols-2 gap-y-1 gap-x-3 my-6 overflow-hidden;
+}
+
+.ModalRegister__data > p {
+    @apply text-sm text-right px-1;
+}
+
+.ModalRegister__data > h5 {
+    @apply text-left m-0 px-1 text-sm;
+} 

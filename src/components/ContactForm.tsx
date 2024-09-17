@@ -4,6 +4,7 @@ import { ChangeEvent, useState, useEffect } from "react"
 /* Components */
 import DataProcessingText from "./shared/DataProcessingText";
 import ModalResponse from "./shared/ModalResponse";
+import ModalRegister from "./shared/ModalRegister";
 
 /* Interfaces */
 import { MessageInterface } from "@/core/types/Message.interface"
@@ -46,6 +47,7 @@ export default function ContactForm() {
     const [showResponse, setShowResponse] = useState(false);
     const [responseMessage, setResponseMessage] = useState("");
     const [responseMessageStatus, setResponseMessageStatus] = useState<RequestStatus>("init");
+    const [showregisterModal, setShowRegisterModal] = useState(false);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
@@ -263,11 +265,16 @@ export default function ContactForm() {
         setResponseMessageStatus("success");
         setResponseMessage("Mensaje enviado con éxito. Espera unos segundos por tu ticket ");
         setShowResponse(true);
-        cleanDataAndErrors();
         setTimeout(() => {
             setShowResponse(false)
+            setShowRegisterModal(true)
         }, 500);
 
+    }
+
+    const hideRegisterModal = () => {
+        cleanDataAndErrors();
+        setShowRegisterModal(false)
     }
 
     const cleanDataAndErrors = () => {
@@ -489,6 +496,20 @@ export default function ContactForm() {
                     </div>
                 )
             }
+
+            {
+                showregisterModal && (
+                    <div className={styles.ContactForm__modalData}>
+                        <div className={styles.ContactForm__modalRegister}>
+                            <ModalRegister dataRegister={formData} />
+                            <div className={styles.ContactForm__buttonArea}>
+                                <button className="btn btn-secondary" onClick={hideRegisterModal}>Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
         </section>
     )
 };
