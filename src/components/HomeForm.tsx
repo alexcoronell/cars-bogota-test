@@ -45,7 +45,6 @@ export default function HomeForm() {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
-        console.log(name, value);
         let finalValue: number | string | boolean = value;
         if (name === "identificationNumber" || name === "mobilePhone") {
             finalValue = validateJustNumber(value)
@@ -235,8 +234,6 @@ export default function HomeForm() {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         validateAll();
-        console.log(formData);
-        console.log(errors);
         if (!validForm()) return;
     }
 
@@ -368,6 +365,7 @@ export default function HomeForm() {
                         <select name="municipality"
                             id="municipality"
                             disabled={parseInt(formData.department as string) < 1}
+                            onChange={handleChange}
                             onBlur={validateMunicipality}
                         >
                             <option value={0}>Selecciona el municipio</option>
