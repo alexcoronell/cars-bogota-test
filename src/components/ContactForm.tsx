@@ -18,6 +18,9 @@ import { type RequestStatus } from "@/core/types/RequestStatus.type";
 import getDepartments from "@/core/services/department.service";
 import getMunicipalities from "@/core/services/municipality.service";
 
+/* Helpers */
+import { generateRegisterNumber } from "@/core/helpers/helpers";
+
 import styles from '@/css/contactForm.module.css';
 
 export default function ContactForm() {
@@ -48,6 +51,7 @@ export default function ContactForm() {
     const [responseMessage, setResponseMessage] = useState("");
     const [responseMessageStatus, setResponseMessageStatus] = useState<RequestStatus>("init");
     const [showregisterModal, setShowRegisterModal] = useState(false);
+    const [registerNumber, setRegisterNumber] = useState("");
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
@@ -264,6 +268,7 @@ export default function ContactForm() {
         }
         setResponseMessageStatus("success");
         setResponseMessage("Mensaje enviado con éxito. Espera unos segundos por tu ticket ");
+        setRegisterNumber(generateRegisterNumber());
         setShowResponse(true);
         setTimeout(() => {
             setShowResponse(false)
@@ -501,7 +506,7 @@ export default function ContactForm() {
                 showregisterModal && (
                     <div className={styles.ContactForm__modalData}>
                         <div className={styles.ContactForm__modalRegister}>
-                            <ModalRegister dataRegister={formData} />
+                            <ModalRegister dataRegister={formData} registerNumber={registerNumber} />
                             <div className={styles.ContactForm__buttonArea}>
                                 <button className="btn btn-secondary" onClick={hideRegisterModal}>Cerrar</button>
                             </div>

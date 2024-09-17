@@ -2,15 +2,16 @@ import { MessageInterface } from "@/core/types/Message.interface";
 
 interface StatusMessageProps {
     dataRegister: MessageInterface;
+    registerNumber: string
 }
 
 import styles from "@/css/modalRegister.module.css";
 
-export default function ModalRegister({ dataRegister }: StatusMessageProps) {
+export default function ModalRegister({ dataRegister, registerNumber }: StatusMessageProps) {
     return (
         <div className={styles.ModalRegister}>
             <h4>Registro:</h4>
-            <h3>#HWEU928392</h3>
+            <h3>#{registerNumber}</h3>
             <div className={styles.ModalRegister__data}>
                 <p>Nombre:</p>
                 <h5>{dataRegister.firstname}</h5>
