@@ -263,10 +263,36 @@ export default function ContactForm() {
         setResponseMessageStatus("success");
             setResponseMessage("Mensaje enviado con éxito. Espera unos segundos por tu ticket ");
             setShowResponse(true);
+            cleanDataAndErrors();
             setTimeout(() => {
                 setShowResponse(false)
             }, 500);
         
+    }
+
+    const cleanDataAndErrors = () => {
+        setErrors(prev => ({
+            ...prev,
+            firstname: "",
+            lastname: "",
+            identificationNumber: "",
+            department: "",
+            municipality: "",
+            mobilePhone: "",
+            email: "",
+            habeasData: ""
+        }))
+        setFormData(prev => ({
+            ...prev,
+            firstname: "",
+            lastname: "",
+            identificationNumber: "",
+            department: "",
+            municipality: "",
+            mobilePhone: "",
+            email: "",
+            habeasData: false
+        }))
     }
 
 
