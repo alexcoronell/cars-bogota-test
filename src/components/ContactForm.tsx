@@ -238,7 +238,7 @@ export default function ContactForm() {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         validateAll();
-        if(!formData.habeasData) {
+        if (!formData.habeasData) {
             setResponseMessageStatus("warning");
             setResponseMessage("Debes aceptar las políticas de manejo de datos para continuar");
             setShowResponse(true);
@@ -261,13 +261,13 @@ export default function ContactForm() {
             habeasData: formData.habeasData
         }
         setResponseMessageStatus("success");
-            setResponseMessage("Mensaje enviado con éxito. Espera unos segundos por tu ticket ");
-            setShowResponse(true);
-            cleanDataAndErrors();
-            setTimeout(() => {
-                setShowResponse(false)
-            }, 500);
-        
+        setResponseMessage("Mensaje enviado con éxito. Espera unos segundos por tu ticket ");
+        setShowResponse(true);
+        cleanDataAndErrors();
+        setTimeout(() => {
+            setShowResponse(false)
+        }, 500);
+
     }
 
     const cleanDataAndErrors = () => {
@@ -298,146 +298,154 @@ export default function ContactForm() {
 
     return (
         <section className={styles.ContactForm}>
+            <h3>Contáctanos</h3>
             <form onSubmit={onSubmit}>
 
-                {/* Firstname */}
-                <div className="formgroup">
-                    <label htmlFor="firstname">
-                        <input type="text"
-                            name="firstname"
-                            value={formData.firstname}
-                            id="firstname"
-                            placeholder="firstname"
-                            disabled={requestStatus == "loading"}
-                            onChange={handleChange}
-                            onBlur={validateFirstname}
-                        />
-                        <span>Nombre</span>
-                    </label>
-                    <p className={errors.firstname === "" ? "hidden" : ""}>
-                        {errors.firstname}
-                    </p>
+                <div className="md:flex md:grid-cols-2 gap-3 md:mb-3">
+                    {/* Firstname */}
+                    <div className="formgroup">
+                        <label htmlFor="firstname">
+                            <input type="text"
+                                name="firstname"
+                                value={formData.firstname}
+                                id="firstname"
+                                placeholder="firstname"
+                                disabled={requestStatus == "loading"}
+                                onChange={handleChange}
+                                onBlur={validateFirstname}
+                            />
+                            <span>Nombre</span>
+                        </label>
+                        <p className={errors.firstname === "" ? "hidden" : ""}>
+                            {errors.firstname}
+                        </p>
+                    </div>
+
+                    {/* Lastname */}
+                    <div className="formgroup">
+                        <label htmlFor="lastname">
+                            <input type="text"
+                                name="lastname"
+                                value={formData.lastname}
+                                id="lastname"
+                                placeholder="lastname"
+                                disabled={requestStatus == "loading"}
+                                onChange={handleChange}
+                                onBlur={validateLastname}
+                            />
+                            <span>Apellido</span>
+                        </label>
+                        <p className={errors.lastname === "" ? "hidden" : ""}>
+                            {errors.lastname}
+                        </p>
+                    </div>
                 </div>
 
-                {/* Lastname */}
-                <div className="formgroup">
-                    <label htmlFor="lastname">
-                        <input type="text"
-                            name="lastname"
-                            value={formData.lastname}
-                            id="lastname"
-                            placeholder="lastname"
-                            disabled={requestStatus == "loading"}
-                            onChange={handleChange}
-                            onBlur={validateLastname}
-                        />
-                        <span>Apellido</span>
-                    </label>
-                    <p className={errors.lastname === "" ? "hidden" : ""}>
-                        {errors.lastname}
-                    </p>
+                <div className="md:grid md:grid-cols-3 gap-3 md:mb-3">
+                    {/* Identification Number */}
+                    <div className="formgroup">
+                        <label htmlFor="identificationNumber">
+                            <input type="text"
+                                name="identificationNumber"
+                                value={formData.identificationNumber}
+                                id="identificationNumber"
+                                placeholder="identificationNumber"
+                                disabled={requestStatus == "loading"}
+                                onChange={handleChange}
+                                onBlur={validateIdentificationNumber}
+                            />
+                            <span>Cédula de ciudadanía</span>
+                        </label>
+                        <p className={errors.identificationNumber === "" ? "hidden" : ""}>
+                            {errors.identificationNumber}
+                        </p>
+                    </div>
+
+                    {/* Mobile Phone */}
+                    <div className="formgroup">
+                        <label htmlFor="mobilePhone">
+                            <input type="text"
+                                name="mobilePhone"
+                                value={formData.mobilePhone}
+                                id="mobilePhone"
+                                placeholder="mobilePhone"
+                                disabled={requestStatus == "loading"}
+                                onChange={handleChange}
+                                onBlur={validateMobilePhone}
+                            />
+                            <span>Número Celular</span>
+                        </label>
+                        <p className={errors.mobilePhone === "" ? "hidden" : ""}>
+                            {errors.mobilePhone}
+                        </p>
+                    </div>
+                    {/* Email */}
+                    <div className="formgroup">
+                        <label htmlFor="email">
+                            <input type="email"
+                                name="email"
+                                value={formData.email}
+                                id="email"
+                                placeholder="email"
+                                disabled={requestStatus == "loading"}
+                                onChange={handleChange}
+                                onBlur={validateEmail}
+                            />
+                            <span>Correo Electrónico</span>
+                        </label>
+                        <p className={errors.email === "" ? "hidden" : ""}>
+                            {errors.email}
+                        </p>
+                    </div>
                 </div>
 
-                {/* Identification Number */}
-                <div className="formgroup">
-                    <label htmlFor="identificationNumber">
-                        <input type="text"
-                            name="identificationNumber"
-                            value={formData.identificationNumber}
-                            id="identificationNumber"
-                            placeholder="identificationNumber"
-                            disabled={requestStatus == "loading"}
-                            onChange={handleChange}
-                            onBlur={validateIdentificationNumber}
-                        />
-                        <span>Cédula de ciudadanía</span>
-                    </label>
-                    <p className={errors.identificationNumber === "" ? "hidden" : ""}>
-                        {errors.identificationNumber}
-                    </p>
-                </div>
 
-                {/* Mobile Phone */}
-                <div className="formgroup">
-                    <label htmlFor="mobilePhone">
-                        <input type="text"
-                            name="mobilePhone"
-                            value={formData.mobilePhone}
-                            id="mobilePhone"
-                            placeholder="mobilePhone"
-                            disabled={requestStatus == "loading"}
-                            onChange={handleChange}
-                            onBlur={validateMobilePhone}
-                        />
-                        <span>Número Celular</span>
-                    </label>
-                    <p className={errors.mobilePhone === "" ? "hidden" : ""}>
-                        {errors.mobilePhone}
-                    </p>
-                </div>
 
-                {/* Email */}
-                <div className="formgroup">
-                    <label htmlFor="email">
-                        <input type="email"
-                            name="email"
-                            value={formData.email}
-                            id="email"
-                            placeholder="email"
-                            disabled={requestStatus == "loading"}
-                            onChange={handleChange}
-                            onBlur={validateEmail}
-                        />
-                        <span>Correo Electrónico</span>
-                    </label>
-                    <p className={errors.email === "" ? "hidden" : ""}>
-                        {errors.email}
-                    </p>
-                </div>
+                <div className="md:grid md:grid-cols-2 gap-3 md:mb-3">
+                    {/* Department */}
+                    <div className="formgroup">
+                        <label htmlFor="department">
+                            <select name="department"
+                                id="department"
+                                onChange={handleChange}
+                                onBlur={validateDepartment}
+                            >
+                                <option value={0}>Selecciona el departamento</option>
+                                {
+                                    departments.map(item => (
+                                        <option key={item.id} value={item.id}>{item.name}</option>
+                                    ))
+                                }
+                            </select>
+                            <span>Departamento</span>
+                        </label>
+                        <p className={errors.department === "" ? "hidden" : ""}>
+                            {errors.department}
+                        </p>
+                    </div>
 
-                {/* Department */}
-                <div className="formgroup">
-                    <label htmlFor="department">
-                        <select name="department"
-                            id="department"
-                            onChange={handleChange}
-                            onBlur={validateDepartment}
-                        >
-                            <option value={0}>Selecciona el departamento</option>
-                            {
-                                departments.map(item => (
-                                    <option key={item.id} value={item.id}>{item.name}</option>
-                                ))
-                            }
-                        </select>
-                        <span>Departamento</span>
-                    </label>
-                    <p className={errors.department === "" ? "hidden" : ""}>
-                        {errors.department}
-                    </p>
-                </div>
-
-                {/* Municipality */}
-                <div className="formgroup">
-                    <label htmlFor="municipality">
-                        <select name="municipality"
-                            id="municipality"
-                            disabled={parseInt(formData.department as string) < 1}
-                            onChange={handleChange}
-                            onBlur={validateMunicipality}
-                        >
-                            <option value={0}>Selecciona el municipio</option>
-                            {
-                                municipalities.map(item => (
-                                    <option key={item.id} value={item.id}>{item.name}</option>
-                                ))
-                            }
-                        </select>
-                        <span>Municipio</span>
-                    </label>
-                    <p className={errors.municipality === "" ? "hidden" : ""}>
-                        {errors.municipality}
-                    </p>
+                    {/* Municipality */}
+                    <div className="formgroup">
+                        <label htmlFor="municipality">
+                            <select name="municipality"
+                                id="municipality"
+                                disabled={parseInt(formData.department as string) < 1}
+                                onChange={handleChange}
+                                onBlur={validateMunicipality}
+                            >
+                                <option value={0}>Selecciona el municipio</option>
+                                {
+                                    municipalities.map(item => (
+                                        <option key={item.id} value={item.id}>{item.name}</option>
+                                    ))
+                                }
+                            </select>
+                            <span>Municipio</span>
+                        </label>
+                        <p className={errors.municipality === "" ? "hidden" : ""}>
+                            {errors.municipality}
+                        </p>
+                    </div>
                 </div>
 
                 <div className="formgroup-checkbox">

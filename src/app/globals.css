@@ -45,7 +45,7 @@ textarea.form-control:focus button {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply font-bold mb-2;
+  @apply font-bold mb-2 text-center;
 }
 
 h1, h2, h3 {
@@ -57,23 +57,23 @@ p {
 }
 
 h1 {
-  @apply text-3xl;
+  @apply text-5xl;
 }
 
 h2 {
-  @apply text-2xl;
+  @apply text-4xl;
 }
 
 h3 {
-  @apply text-xl;
+  @apply text-3xl;
 }
 
 h4 {
-  @apply text-lg;
+  @apply text-xl;
 }
 
 h5 {
-  @apply text-base;
+  @apply text-lg;
 }
 
 h6 {
