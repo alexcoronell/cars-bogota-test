@@ -79,3 +79,11 @@ textarea.form-control:focus button {
 .formgroup-checkbox div {
   @apply size-5 border border-orange-500 py-1;
 }
+
+.btn {
+  @apply py-2 px-6 rounded-sm transition-all duration-300;
+}
+
+.btn-primary {
+  @apply bg-orange-500/75 text-white hover:bg-orange-500 hover:shadow-md hover:shadow-orange-500/30;
+}
