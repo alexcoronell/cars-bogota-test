@@ -2,20 +2,22 @@
 import { ChangeEvent, useState, useEffect } from "react"
 
 /* Components */
-import DataProcessingText from "./DataProcessingText";
+import DataProcessingText from "./shared/DataProcessingText";
+import ModalResponse from "./shared/ModalResponse";
 
 /* Interfaces */
 import { MessageInterface } from "@/core/types/Message.interface"
 import { DepartmentInterface } from "@/core/types/Department.interface";
 import { MunicipalityInterface } from "@/core/types/Municipality.interface";
 
+/* Types */
+import { type RequestStatus } from "@/core/types/RequestStatus.type";
+
 /* Services */
 import getDepartments from "@/core/services/department.service";
 import getMunicipalities from "@/core/services/municipality.service";
 
 import styles from '@/css/contactForm.module.css';
-
-type RequestStatus = "init" | "loading" | "success" | "failed";
 
 export default function ContactForm() {
     const [formData, setFormData] = useState<MessageInterface>({
@@ -41,6 +43,9 @@ export default function ContactForm() {
     });
 
     const [showModalData, setShowModalData] = useState(false);
+    const [showResponse, setShowResponse] = useState(false);
+    const [responseMessage, setResponseMessage] = useState("");
+    const [responseMessageStatus, setResponseMessageStatus] = useState<RequestStatus>("init");
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target as HTMLInputElement | HTMLSelectElement;
@@ -233,6 +238,14 @@ export default function ContactForm() {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         validateAll();
+        if(!formData.habeasData) {
+            setResponseMessageStatus("warning");
+            setResponseMessage("Debes aceptar las políticas de manejo de datos para continuar");
+            setShowResponse(true);
+            setTimeout(() => {
+                setShowResponse(false)
+            }, 2000);
+        }
         if (!validForm()) return;
         setRequestStatus("loading");
         const indexDepartment = departments.findIndex(department => department.id === parseInt(formData.department));
@@ -247,7 +260,13 @@ export default function ContactForm() {
             municipality: municipalities[indexMunicipality].name,
             habeasData: formData.habeasData
         }
-        console.log(newMessage);
+        setResponseMessageStatus("success");
+            setResponseMessage("Mensaje enviado con éxito. Espera unos segundos por tu ticket ");
+            setShowResponse(true);
+            setTimeout(() => {
+                setShowResponse(false)
+            }, 500);
+        
     }
 
 
@@ -414,6 +433,7 @@ export default function ContactForm() {
 
             </form>
 
+            {/* Data Processing Text */}
             {
                 showModalData && (
                     <div className={styles.ContactForm__modalData}>
@@ -423,6 +443,15 @@ export default function ContactForm() {
                                 <button className="btn btn-secondary" onClick={() => setShowModalData(false)}>Cerrar</button>
                             </div>
                         </div>
+                    </div>
+                )
+            }
+
+            {/* Modal Response */}
+            {
+                showResponse && (
+                    <div className={styles.ContactForm__modalData}>
+                        <ModalResponse statusRequest={responseMessageStatus} text={responseMessage} />
                     </div>
                 )
             }
