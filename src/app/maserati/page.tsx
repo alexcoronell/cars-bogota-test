@@ -1,5 +1,5 @@
 import BrandPagesHeader from "@/components/shared/BrandPagesHeader"
-import BrandPagesContent from "@/components/shared/BrandPagesContent";
+import PagesContent from "@/components/shared/PagesContent";
 import BrandPagesGallery from "@/components/shared/BrandPagesGallery";
 
 import logoImage from '@/assets/images/cars/logos/maserati-logo.webp'
@@ -19,7 +19,7 @@ export default function MaseratiPage() {
     return (
         <>
             <BrandPagesHeader image={logoImage} altText={title} />
-            <BrandPagesContent title={title} content={content}  />
+            <PagesContent title={title} content={content}  />
             <BrandPagesGallery images={images} title={title} />
         </>
     )

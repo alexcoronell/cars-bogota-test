@@ -1,11 +1,11 @@
-interface BrandPagesContentProps {
+interface PagesContentProps {
     title: string;
     content: string;
 }
 
-import styles from "@/css/brandPagesContent.module.css"
+import styles from "@/css/pagesContent.module.css"
 
-export default function BrandPagesContent({title, content}: BrandPagesContentProps) {
+export default function PagesContent({title, content}: PagesContentProps) {
     return (
         <main className={styles.BrandPagesContent}>
             <div className={styles.BrandPagesContent__container}>
