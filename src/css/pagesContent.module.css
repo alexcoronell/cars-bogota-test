@@ -6,8 +6,8 @@
     @apply w-[90%] max-w-[1200px] mx-auto;
 }
 
-.BrandPagesContent h3 {
-    @apply mb-0 lg:text-4xl xl:text-5xl 2xl:text-6xl;
+.BrandPagesContent h1 {
+    @apply mb-0 xl:text-6xl 2xl:text-7xl;
 }
 
 .BrandPagesContent p {
