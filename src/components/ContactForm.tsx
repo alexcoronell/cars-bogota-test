@@ -75,18 +75,14 @@ export default function ContactForm({ showTitleComponent = true }: Props) {
 
 
     const [requestStatus, setRequestStatus] = useState<RequestStatus>("init");
-    const [requestStatusDepartments, setRequestStatusDepartments] = useState<RequestStatus>("init");
-    const [requestStatusMunicipalities, setRequestStatusMunicipalities] = useState<RequestStatus>("init");
     const [departments, setDepartments] = useState<DepartmentInterface[]>([]);
     const [municipalities, setMunicipalities] = useState<MunicipalityInterface[]>([]);
 
 
     useEffect(() => {
         const getData = async () => {
-            setRequestStatusDepartments("loading")
             const data = await getDepartments();
             setDepartments(data);
-            setRequestStatusDepartments("success")
         }
         getData();
     }, [])
@@ -95,10 +91,8 @@ export default function ContactForm({ showTitleComponent = true }: Props) {
     useEffect(() => {
         const getCurrentMunicipalities = async (id: number) => {
             if (!formData.department) return;
-            setRequestStatusMunicipalities("loading")
             const data = await getMunicipalities(id);
             setMunicipalities(data)
-            setRequestStatusMunicipalities("success")
         }
         getCurrentMunicipalities(formData.department as unknown as number);
     }, [formData.department])
@@ -271,6 +265,8 @@ export default function ContactForm({ showTitleComponent = true }: Props) {
             municipality: municipalities[indexMunicipality].name,
             habeasData: formData.habeasData
         }
+
+        console.log(newMessage);
         setResponseMessageStatus("success");
         setResponseMessage("Mensaje enviado con éxito. Espera unos segundos por tu ticket ");
         setRegisterNumber(generateRegisterNumber());
