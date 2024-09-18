@@ -6,10 +6,10 @@ import ferraryImage from "@/assets/images/cars/carrousel/ferrary.webp"
 import maseratiImage from "@/assets/images/cars/carrousel/maserati.webp"
 
 
-export default function Carrousel() {
+export default function Carousel() {
     return (
-        <section className="Carrousel">
-            Carrousel
+        <section className="Carousel">
+            Carousel
         </section>
     )
 };
