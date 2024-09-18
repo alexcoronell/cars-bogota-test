@@ -1,20 +1,20 @@
-.ContactForm {
+.ParticipateForm {
     @apply bg-neutral-950 w-full p-6;
 }
 
-.ContactForm__modalData {
+.ParticipateForm__modalData {
     @apply w-screen h-screen fixed inset-0 flex items-center justify-center bg-neutral-950/60;
     backdrop-filter: blur(4px);
 }
 
-.ContactForm__modalDataBox, .ContactForm__modalRegister {
+.ParticipateForm__modalDataBox, .ParticipateForm__modalRegister {
     @apply w-[90%] max-w-[400px] relative max-h-[80vh] overflow-y-scroll border border-orange-500 p-3 bg-neutral-950;
 }
 
-.ContactForm__modalRegister {
+.ParticipateForm__modalRegister {
     @apply max-w-[500px];
 }
 
-.ContactForm__buttonArea {
+.ParticipateForm__buttonArea {
     @apply py-3 flex items-center justify-center;
 }

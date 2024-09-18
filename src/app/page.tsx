@@ -1,6 +1,6 @@
 import Carousel from "@/components/Carousel";
 import PagesContent from "@/components/shared/PagesContent";
-import ContactForm from "@/components/ContactForm";
+import ContactForm from "@/components/ParticipateForm";
 import PictureContactSection from "@/components/PictureContactSection";
 
 const title = "High Range";

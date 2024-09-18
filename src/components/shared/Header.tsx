@@ -37,8 +37,8 @@ export default function Header() {
             url: "/maserati"
         },
         {
-            title: "Contacto",
-            url: "/contacto"
+            title: "Participa",
+            url: "/participa"
         },
     ]
     return (

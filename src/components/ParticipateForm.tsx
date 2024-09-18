@@ -26,9 +26,9 @@ interface Props {
     showTitleComponent?: boolean;
 }
 
-import styles from '@/css/contactForm.module.css';
+import styles from '@/css/participateForm.module.css';
 
-export default function ContactForm({ showTitleComponent = true }: Props) {
+export default function ParticipateForm({ showTitleComponent = true }: Props) {
     const [formData, setFormData] = useState<MessageInterface>({
         firstname: "",
         lastname: "",
@@ -310,8 +310,8 @@ export default function ContactForm({ showTitleComponent = true }: Props) {
 
 
     return (
-        <section className={styles.ContactForm}>
-            {showTitleComponent && (<h3>Contáctanos</h3>)}
+        <section className={styles.ParticipateForm}>
+            {showTitleComponent && (<h3>Participa</h3>)}
             <form onSubmit={onSubmit}>
 
                 <div className="md:flex md:grid-cols-2 gap-3 md:mb-3">
@@ -474,7 +474,7 @@ export default function ContactForm({ showTitleComponent = true }: Props) {
                         {errors.habeasData}
                     </p>
                 </div>
-                <div className={styles.ContactForm__buttonArea}>
+                <div className={styles.ParticipateForm__buttonArea}>
                     <button className="btn btn-primary" type="submit">Enviar</button>
                 </div>
 
@@ -483,10 +483,10 @@ export default function ContactForm({ showTitleComponent = true }: Props) {
             {/* Data Processing Text */}
             {
                 showModalData && (
-                    <div className={styles.ContactForm__modalData}>
-                        <div className={styles.ContactForm__modalDataBox}>
+                    <div className={styles.ParticipateForm__modalData}>
+                        <div className={styles.ParticipateForm__modalDataBox}>
                             <DataProcessingText />
-                            <div className={styles.ContactForm__buttonArea}>
+                            <div className={styles.ParticipateForm__buttonArea}>
                                 <button className="btn btn-secondary" onClick={() => setShowModalData(false)}>Cerrar</button>
                             </div>
                         </div>
@@ -497,7 +497,7 @@ export default function ContactForm({ showTitleComponent = true }: Props) {
             {/* Modal Response */}
             {
                 showResponse && (
-                    <div className={styles.ContactForm__modalData}>
+                    <div className={styles.ParticipateForm__modalData}>
                         <ModalResponse statusRequest={responseMessageStatus} text={responseMessage} />
                     </div>
                 )
@@ -505,10 +505,10 @@ export default function ContactForm({ showTitleComponent = true }: Props) {
 
             {
                 showregisterModal && (
-                    <div className={styles.ContactForm__modalData}>
-                        <div className={styles.ContactForm__modalRegister}>
+                    <div className={styles.ParticipateForm__modalData}>
+                        <div className={styles.ParticipateForm__modalRegister}>
                             <ModalRegister dataRegister={formData} registerNumber={registerNumber} />
-                            <div className={styles.ContactForm__buttonArea}>
+                            <div className={styles.ParticipateForm__buttonArea}>
                                 <button className="btn btn-secondary" onClick={hideRegisterModal}>Cerrar</button>
                             </div>
                         </div>
