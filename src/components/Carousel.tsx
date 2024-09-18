@@ -22,7 +22,6 @@ export default function Carousel() {
             } else {
                 index += 1
             }
-            console.log(index);
             setCurrentImage(images[index])
         }, 3000);
     }

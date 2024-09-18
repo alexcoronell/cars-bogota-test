@@ -105,6 +105,14 @@ h6 {
   @apply text-neutral-950;
 }
 
+.formgroup select * {
+  @apply bg-neutral-950 hover:bg-orange-500 hover:text-neutral-950 cursor-pointer;
+}
+
+.formgroup select option:checked, .formgroup select option:default, .formgroup select option.selected {
+  @apply bg-orange-500 text-neutral-950;
+}
+
 .formgroup > p, .formgroup-checkbox > p {
   @apply text-xs absolute text-[#FF0000] mt-1 ml-1;
 }

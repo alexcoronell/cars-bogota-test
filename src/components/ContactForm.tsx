@@ -178,7 +178,7 @@ export default function ContactForm() {
 
     const validateDepartment = (): boolean => {
         let error = ""
-        if (!formData.department) {
+        if (!formData.department || formData.department === "0") {
             error = "El departamento es requerido"
         }
         setErrors(prev => ({
@@ -190,7 +190,7 @@ export default function ContactForm() {
 
     const validateMunicipality = (): boolean => {
         let error = ""
-        if (!formData.municipality) {
+        if (!formData.municipality || formData.municipality === "0") {
             error = "El Municipio es requerido"
         }
         setErrors(prev => ({
