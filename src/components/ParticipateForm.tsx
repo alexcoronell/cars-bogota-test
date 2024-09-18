@@ -29,6 +29,7 @@ interface Props {
 import styles from '@/css/participateForm.module.css';
 
 export default function ParticipateForm({ showTitleComponent = true }: Props) {
+    const [ticket, setTicket] = useState<MessageInterface | null>(null)
     const [formData, setFormData] = useState<MessageInterface>({
         firstname: "",
         lastname: "",
@@ -265,8 +266,9 @@ export default function ParticipateForm({ showTitleComponent = true }: Props) {
             municipality: municipalities[indexMunicipality].name,
             habeasData: formData.habeasData
         }
-
-        console.log(newMessage);
+        
+        setTicket(newMessage);
+        setRequestStatus("success");
         setResponseMessageStatus("success");
         setResponseMessage("Mensaje enviado con éxito. Espera unos segundos por tu ticket ");
         setRegisterNumber(generateRegisterNumber());
@@ -507,7 +509,7 @@ export default function ParticipateForm({ showTitleComponent = true }: Props) {
                 showregisterModal && (
                     <div className={styles.ParticipateForm__modalData}>
                         <div className={styles.ParticipateForm__modalRegister}>
-                            <ModalRegister dataRegister={formData} registerNumber={registerNumber} />
+                            <ModalRegister dataRegister={ticket as MessageInterface} registerNumber={registerNumber} />
                             <div className={styles.ParticipateForm__buttonArea}>
                                 <button className="btn btn-secondary" onClick={hideRegisterModal}>Cerrar</button>
                             </div>
