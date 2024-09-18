@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Carousel from "@/components/Carousel";
 import WhyChoose from "@/components/WhyChoose";
 import ContactForm from "@/components/ContactForm";
