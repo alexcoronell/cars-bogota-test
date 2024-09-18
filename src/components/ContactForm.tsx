@@ -21,9 +21,14 @@ import getMunicipalities from "@/core/services/municipality.service";
 /* Helpers */
 import { generateRegisterNumber } from "@/core/helpers/helpers";
 
+/* Props */
+interface Props {
+    showTitleComponent?: boolean;
+}
+
 import styles from '@/css/contactForm.module.css';
 
-export default function ContactForm() {
+export default function ContactForm({ showTitleComponent = true }: Props) {
     const [formData, setFormData] = useState<MessageInterface>({
         firstname: "",
         lastname: "",
@@ -310,7 +315,7 @@ export default function ContactForm() {
 
     return (
         <section className={styles.ContactForm}>
-            <h3>Contáctanos</h3>
+            {showTitleComponent && (<h3>Contáctanos</h3>)}
             <form onSubmit={onSubmit}>
 
                 <div className="md:flex md:grid-cols-2 gap-3 md:mb-3">
