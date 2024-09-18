@@ -1,0 +1,12 @@
+.ParticipateBanner {
+    @apply w-screen h-screen fixed inset-0 flex items-center justify-center bg-neutral-950/60;
+    backdrop-filter: blur(4px);
+}
+
+.ParticipateBanner__box {
+    @apply relative border-2 border-orange-500 p-8 bg-neutral-950 w-[90%] flex flex-col justify-center items-center gap-y-4;
+}
+
+.ParticipateBanner__box ul {
+    @apply text-center;
+}

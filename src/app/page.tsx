@@ -2,6 +2,7 @@ import Carousel from "@/components/Carousel";
 import PagesContent from "@/components/shared/PagesContent";
 import ContactForm from "@/components/ParticipateForm";
 import PictureContactSection from "@/components/PictureContactSection";
+import ParticipateBanner from "@/components/ParticipateBanner";
 
 const title = "High Range";
 const content = "Elegir Hight Range significa optar por vehículos de lujo de marcas prestigiosas como Porsche, Ferrari, Lamborghini y Maserati, garantizando calidad y exclusividad. Ofrecemos una experiencia de compra personalizada y un servicio postventa excepcional, además de la oportunidad de unirte a una comunidad de entusiastas del automóvil. En Hight Range, no solo adquieres un vehículo; vives una experiencia que combina pasión y un servicio inigualable.";
@@ -15,6 +16,7 @@ export default function Home() {
         <PictureContactSection />
         <ContactForm />
       </div>
+      <ParticipateBanner />
     </div>
   );
 }
