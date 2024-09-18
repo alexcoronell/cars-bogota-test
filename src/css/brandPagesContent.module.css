@@ -1,0 +1,19 @@
+.BrandPagesContent {
+    @apply bg-white py-16;
+}
+
+.BrandPagesContent__container {
+    @apply w-[90%] max-w-[1200px] mx-auto;
+}
+
+.BrandPagesContent h3 {
+    @apply mb-0 lg:text-4xl xl:text-5xl 2xl:text-6xl;
+}
+
+.BrandPagesContent p {
+    @apply text-neutral-950 text-center lg:text-lg xl:text-xl xl:leading-8 2xl:text-2xl 2xl:leading-10;
+}
+
+.BrandPagesContent hr {
+    @apply w-[60%] my-12 mx-auto border-2 border-orange-500;
+}

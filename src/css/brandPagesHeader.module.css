@@ -4,6 +4,6 @@
 
 @media (max-width: 991px) {
     .HeaderBrandPages {
-        height: calc(100vh - 73px - 49px);
+        height: calc(100vh - 73px);
     }
 }

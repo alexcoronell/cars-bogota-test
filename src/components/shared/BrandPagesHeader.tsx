@@ -1,13 +1,13 @@
 import Image, { StaticImageData } from "next/image";
 
-interface HeaderBrandProps {
+interface BrandPagesHeaderProps {
     image: StaticImageData;
     altText: string;
 }
 
-import styles from '@/css/headerBrandPages.module.css'
+import styles from '@/css/brandPagesHeader.module.css'
 
-export default function HeaderBrandPages({image, altText}: HeaderBrandProps) {
+export default function BrandPagesHeader({image, altText}: BrandPagesHeaderProps) {
     return (
         <section className={styles.HeaderBrandPages}>
                 <Image
