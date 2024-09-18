@@ -52,7 +52,7 @@ export default function Header() {
                     {
                         menu.map((item, index) => (
                             <li key={index}>
-                                <Link className="transition-all duration-300 hover:text-orange-500" href={item.url}>{item.title}</Link>
+                                <Link className="transition-all duration-300 hover:text-orange-500" href={item.url} onClick={() => handleClick(false)}>{item.title}</Link>
                             </li>
                         ))
                     }
