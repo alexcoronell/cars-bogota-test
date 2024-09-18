@@ -1,0 +1,9 @@
+.HeaderBrandPages {
+    @apply w-full flex items-center justify-center bg-cover bg-center bg-[url('../assets/images/backgrounds/background-mobile.webp')] lg:bg-[url('../assets/images/backgrounds/background-desktop.webp')] lg:h-[300px] 2xl:h-[400px];
+}
+
+@media (max-width: 991px) {
+    .HeaderBrandPages {
+        height: calc(100vh - 73px - 49px);
+    }
+}
